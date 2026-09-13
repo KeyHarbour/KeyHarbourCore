@@ -15,7 +15,6 @@ class Subscription < ApplicationRecord
   end
 
   def plan
-
     @plan ||= Plan.find(plan_id)
   end
 
