@@ -25,7 +25,6 @@ class SubscriptionCredit < ApplicationRecord
   private
 
   def assign_uuid
-    # UUID format YY-MM-EVENT-ORDER-UUID
     self.uuid = "#{self.month.strftime("%Y-%m")}-#{self.event}-#{self.order}-#{SecureRandom.uuid}"
   end
 end

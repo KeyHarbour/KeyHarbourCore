@@ -67,8 +67,7 @@ class TrustAsset < ApplicationRecord
     end
 
     searchable_attributes [ :name, :expires_at, :issuer, :format, :consumer, :workspace_id, :environment_id ]
-    
-    # Optionnel : Champs utilisables pour le filtrage (facets)
+
     filterable_attributes [ :name, :expires_at, :issuer, :format, :consumer, :workspace_id, :environment_id, :expires_at ]
   end  
 

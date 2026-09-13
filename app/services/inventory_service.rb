@@ -1,6 +1,5 @@
 class InventoryService
   def initialize(workspace, environment, content)
-    # ActiveRecord::Base.logger = Logger.new(STDOUT)
     @workspace = workspace
     @environment = environment
     @content = content

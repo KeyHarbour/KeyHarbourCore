@@ -2,11 +2,9 @@ class Coupon < ApplicationRecord
   include Archivable
   VALID_SLUG_REGEX = /\A[a-z0-9-]+\z/
   after_create :create_or_update_coupon
-  # before_destroy :delete_coupon
   validates :name, presence: true, uniqueness: true
   has_many :subscription_coupons
   has_many :coupon_plans, dependent: :destroy
-  # before_update :block_update
 
   validates :uuid, 
             presence: true, 
@@ -25,14 +23,6 @@ class Coupon < ApplicationRecord
   def plan
     @plan ||= Plan.find(plan_id)
   end
-  # def plan_ids
-  #   coupon_plans.pluck(:plan_id)
-  # end
-
-  # def plan_ids=(ids)
-  #   nettoye_ids = Array(ids).reject(&:blank?)
-  #   self.coupon_plans = nettoye_ids.map { |id| coupon_plans.build(plan_id: id) }
-  # end
 
   def client
     @client ||= Stripe::StripeClient.new(Stripe.api_key)

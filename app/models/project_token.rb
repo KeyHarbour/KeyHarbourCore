@@ -1,7 +1,6 @@
 class ProjectToken < Token
   self.table_name = 'tokens'
   attr_accessor :only_project
-  # self.inheritance_column = :_type_disabled
 
   validates :environment, presence: true
 

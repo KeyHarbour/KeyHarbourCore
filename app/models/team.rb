@@ -9,7 +9,6 @@ class Team < ApplicationRecord
   validates :account, presence: true
   attr_accessor :organization_id, :project_id, :workspace_id
   enum :source, { local: 0, active_directory: 1 }
-  # before_validation :assign_default_account, on: :create
 
   def to_param
     uuid
@@ -27,8 +26,4 @@ class Team < ApplicationRecord
   end
 
   private
-
-  # def assign_default_account
-  #   self.account ||= Account.first
-  # end
 end

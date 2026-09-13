@@ -8,9 +8,6 @@ class Token < ApplicationRecord
   validates :scopable_id, presence: true
   attr_reader :project_id, :workspace_id, :organization_id
 
-  # generates_token_for :statefile, expires_in: 2.days do
-  #   name
-  # end
   generates_token_for :statefile do
     updated_at
   end
@@ -62,9 +59,6 @@ class Token < ApplicationRecord
   end
 
   def organization_token?
-    # logger.debug "scopable_type: #{scopable_type}".red
-    # logger.debug scopable_type
-    # logger.debug environment.inspect
     scopable_type == "Organization" && !environment.nil?
   end
 

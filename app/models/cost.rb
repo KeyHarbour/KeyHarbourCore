@@ -18,13 +18,6 @@ class Cost
   def self.service_names
     all.index_by { |cost| cost.id.underscore }.transform_values(&:id)
   end
-  # def self.service_names
-  #   service_names = {}
-  #   self.all.each do |cost|
-  #     service_names[cost.id.underscore] = cost.id
-  #   end
-  #   service_names
-  # end
 
   def self.query_service_names
     service_names = []

@@ -49,8 +49,7 @@ class KeyValueStore < ApplicationRecord
     end
 
     searchable_attributes [ :key, :expires_at, :workspace_id, :environment_id ]
-    
-    # Optionnel : Champs utilisables pour le filtrage (facets)
+
     filterable_attributes [ :key, :workspace_id, :environment_id, :expires_at, :one_time_only, :private ]
   end  
 

@@ -19,10 +19,6 @@ class Statefile < ApplicationRecord
   def size
     content.size
   end
-  #
-  # def to_param
-  #   uuid
-  # end
 
   def self.new_version(workspace:, environment:, content:, published_at: nil)
     raise ActiveRecord::RecordNotFound, "Environment not available for this workspace" unless workspace.project.environments.include?(environment)

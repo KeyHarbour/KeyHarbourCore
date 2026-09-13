@@ -36,8 +36,6 @@ class Organization < ApplicationRecord
 
   validates :name, presence: true
   before_create :assign_uuid
-  # before_validation :assign_default_account, on: :create
-  # has_rich_text :description
 
   def to_param
     uuid
@@ -91,24 +89,6 @@ class Organization < ApplicationRecord
         alert_renewal_1: application.alert_renewal_1
       }
     end
-    # app_instances.active.each do |instance|
-    #   next unless instance.renewal_date.present?
-
-    #   if instance.logo.attached?
-    #     logo = item[:logo]
-    #   elsif  instance.application.logo.attached?
-    #     logo = instance.application.logo
-    #   end
-
-    #   result << {
-    #     instance: instance,
-    #     name: "#{instance.application.name} / #{instance.name}",
-    #     logo: logo,
-    #     renewal_date: instance.renewal_date,
-    #     alert_renewal_2: instance.alert_renewal_2 || instance.application.alert_renewal_2,
-    #     alert_renewal_1: instance.alert_renewal_1 || instance.application.alert_renewal_1
-    #   }
-    # end
     result.sort_by { |item| item[:renewal_date] }
   end
 
