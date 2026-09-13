@@ -1,8 +1,7 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in key_harbour_core.gemspec.
 gemspec
-
+gem "rails", "~> 8.1.3"
 gem "puma"
 
 gem "pg"
@@ -12,7 +11,6 @@ gem "csv"
 gem 'pagy'
 gem "unique_names_generator"
 gem "colorize"
-# Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
 gem "rubocop-rails-omakase", require: false
 
 group :development, :test do
