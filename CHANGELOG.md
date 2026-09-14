@@ -1,3 +1,11 @@
+## v1.0.2 (2026-09-14)
+
+### Bug Fixes
+* Adding VERSION to gemspec with absolute path (a8bd14e)
+* Adding VERSION to gemspec with absolute path (0d5db73)
+
+---
+
 ## v1.0.1 (2026-09-14)
 
 ### Bug Fixes
