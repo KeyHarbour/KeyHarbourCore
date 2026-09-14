@@ -7,6 +7,7 @@ gem "puma"
 gem "pg"
 gem "bcrypt", "~> 3.1.21"
 gem "meilisearch-rails"
+gem "json", "< 3.0"
 gem "csv"
 gem 'pagy'
 gem "unique_names_generator"

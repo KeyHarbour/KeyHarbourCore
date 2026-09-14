@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"] = "https://github.com/KeyHarbour/KeyHarbourCore/blob/main/CHANGELOG.md"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    Dir["{app,config,db,lib}/**/*", "Rakefile", "README.md"]
+    Dir["{app,config,db,lib}/**/*", "Rakefile", "README.md", "VERSION"]
   end
 
   spec.add_dependency "rails", ">= 8.1.3.1"
