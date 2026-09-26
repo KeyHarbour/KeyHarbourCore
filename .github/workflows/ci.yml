@@ -80,9 +80,11 @@ jobs:
         run: |
           bundle exec rails db:setup RAILS_ENV=test
 
-      - name: Run tests
-        run: |
-          bundle exec rspec spec
+      - name: Run test
+        run: bundle exec rspec spec
+
+      - name: Generate coverage badge
+        run: bin/coverage_badge 
 
   increment_version:
     name: Increment Version
@@ -113,4 +115,14 @@ jobs:
           git tag -a "v$VERSION" -m "Release v$VERSION"
           git push origin "v$VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(cat VERSION | tr -d '[:space:]')
+          gh release create "v${VERSION}" \
+            --generate-notes \
+            --title "Release v${VERSION}"
 

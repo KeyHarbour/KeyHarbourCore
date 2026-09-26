@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_12_215533) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_26_120804) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -219,6 +219,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_12_215533) do
     t.index ["workspace_id"], name: "index_key_value_stores_on_workspace_id"
   end
 
+  create_table "license_add_ons", force: :cascade do |t|
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.bigint "license_instance_id", null: false
+    t.string "name"
+    t.decimal "unit_cost", precision: 10, scale: 4
+    t.datetime "updated_at", null: false
+    t.string "uuid"
+    t.index ["license_instance_id"], name: "index_license_add_ons_on_license_instance_id"
+  end
+
   create_table "license_applications", force: :cascade do |t|
     t.integer "alert_renewal_1", default: 90
     t.integer "alert_renewal_2", default: 30
@@ -274,6 +286,59 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_12_215533) do
     t.datetime "updated_at", null: false
     t.string "uuid", null: false
     t.index ["instance_id"], name: "index_license_licensees_on_instance_id"
+  end
+
+  create_table "license_providers", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.string "uuid"
+    t.index ["account_id"], name: "index_license_providers_on_account_id"
+  end
+
+  create_table "license_quote_add_ons", force: :cascade do |t|
+    t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.bigint "license_add_on_id", null: false
+    t.bigint "license_quote_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["license_add_on_id"], name: "index_license_quote_add_ons_on_license_add_on_id"
+    t.index ["license_quote_id"], name: "index_license_quote_add_ons_on_license_quote_id"
+  end
+
+  create_table "license_quote_applications", force: :cascade do |t|
+    t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.bigint "license_application_id", null: false
+    t.bigint "license_quote_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["license_application_id"], name: "index_license_quote_applications_on_license_application_id"
+    t.index ["license_quote_id"], name: "index_license_quote_applications_on_license_quote_id"
+  end
+
+  create_table "license_quote_instances", force: :cascade do |t|
+    t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.bigint "license_instance_id", null: false
+    t.bigint "license_quote_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["license_instance_id"], name: "index_license_quote_instances_on_license_instance_id"
+    t.index ["license_quote_id"], name: "index_license_quote_instances_on_license_quote_id"
+  end
+
+  create_table "license_quotes", force: :cascade do |t|
+    t.date "approved_at"
+    t.date "available_on"
+    t.date "available_until"
+    t.datetime "created_at", null: false
+    t.bigint "license_application_id", null: false
+    t.bigint "license_provider_id", null: false
+    t.integer "status"
+    t.datetime "updated_at", null: false
+    t.string "uuid"
+    t.index ["license_application_id"], name: "index_license_quotes_on_license_application_id"
+    t.index ["license_provider_id"], name: "index_license_quotes_on_license_provider_id"
   end
 
   create_table "license_team_members", force: :cascade do |t|
@@ -644,9 +709,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_12_215533) do
   add_foreign_key "invoices", "subscriptions"
   add_foreign_key "key_value_stores", "environments"
   add_foreign_key "key_value_stores", "workspaces"
+  add_foreign_key "license_add_ons", "license_instances"
   add_foreign_key "license_applications", "organizations"
   add_foreign_key "license_instances", "license_applications", column: "application_id"
   add_foreign_key "license_licensees", "license_instances", column: "instance_id"
+  add_foreign_key "license_providers", "accounts"
+  add_foreign_key "license_quote_add_ons", "license_add_ons"
+  add_foreign_key "license_quote_add_ons", "license_quotes"
+  add_foreign_key "license_quote_applications", "license_applications"
+  add_foreign_key "license_quote_applications", "license_quotes"
+  add_foreign_key "license_quote_instances", "license_instances"
+  add_foreign_key "license_quote_instances", "license_quotes"
+  add_foreign_key "license_quotes", "license_applications"
+  add_foreign_key "license_quotes", "license_providers"
   add_foreign_key "license_team_members", "license_team_members", column: "manager_id"
   add_foreign_key "license_team_members", "organizations"
   add_foreign_key "license_uploads", "license_instances", column: "instance_id"
