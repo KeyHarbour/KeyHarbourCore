@@ -1,5 +1,6 @@
 class License::AddOn < ApplicationRecord
-  belongs_to :instance, class_name: 'License::Instance', foreign_key: 'license_instance_id'
+  belongs_to :instance, class_name: 'License::Instance', foreign_key: 'instance_id'
+  has_many :quote_add_ons, class_name: 'License::QuoteAddOn', foreign_key: 'add_on_id'
 
   validates :name, presence: true
   validates :uuid, presence: true, uniqueness: true

@@ -6,6 +6,6 @@ FactoryBot.define do
     available_on { Date.current }
     available_until { 1.month.from_now.to_date }
     approved_at { nil }
-    status { 0 }
+    status { :intial }
   end
 end

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe License::QuoteInstance, type: :model do
   describe 'Associations' do
     it { should belong_to(:instance) }
-    it { should belong_to(:quote) }
+    it { should belong_to(:quote_application) }
   end
 
   describe 'Validations' do

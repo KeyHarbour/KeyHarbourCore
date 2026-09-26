@@ -10,7 +10,6 @@ RSpec.describe License::Quote, type: :model do
     it { should validate_presence_of(:uuid) }
     
     context 'Uniq' do
-      # On utilise une factory persistée pour que les clés étrangères existent en BDD
       subject { create(:license_quote) }
       it { should validate_uniqueness_of(:uuid).case_insensitive }
     end
