@@ -1,3 +1,10 @@
+## v1.1.0 (2026-09-26)
+
+### Features
+* Add feature to support quote and provider (7ef4049)
+
+---
+
 ## v1.0.2 (2026-09-14)
 
 ### Bug Fixes
