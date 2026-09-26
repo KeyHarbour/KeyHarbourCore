@@ -4,6 +4,7 @@ class License::Instance < ApplicationRecord
   
   belongs_to :application, class_name: 'License::Application'
   has_many :licensees, class_name: 'License::Licensee', dependent: :destroy
+  has_many :add_ons, class_name: 'License::AddOn', dependent: :destroy
   has_one_attached :logo
   validates :name, presence: true
   validates :short_name, presence: true
