@@ -1,7 +1,7 @@
 class License::QuoteApplication < ApplicationRecord
   belongs_to :application, class_name: 'License::Application', foreign_key: 'application_id'
   belongs_to :quote, class_name: 'License::Quote', foreign_key: 'quote_id'
-  has_many :quote_instances , class_name: 'License::QuoteInstance', foreign_key: 'quote_application_id'
+  has_many :quote_instances, class_name: 'License::QuoteInstance', foreign_key: 'quote_application_id'
 
   validates :amount, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
