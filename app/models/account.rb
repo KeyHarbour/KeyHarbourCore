@@ -65,6 +65,21 @@ class Account < ApplicationRecord
     unscoped
   end
 
+  def apps_json
+    applications.map do |app|
+      {
+        uuid: app.uuid,
+        name: app.name,
+        short_name: app.short_name,
+        vendor: app.vendor,
+        owner: app.owner,
+        tier: app.tier,
+        renewal_date: app.renewal_date&.to_s,
+        status: app.status
+      }
+    end
+  end
+
   def application_uniq_users
     users = []
     applications.each do |application|

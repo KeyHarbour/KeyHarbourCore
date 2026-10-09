@@ -15,25 +15,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_01_203522) do
   enable_extension "pg_catalog.plpgsql"
 
   create_table "action_logs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "organization_id"
+    t.string "controller"
     t.string "action"
     t.bigint "action_id"
-    t.string "controller"
-    t.datetime "created_at", null: false
     t.string "method_type"
-    t.bigint "organization_id"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
   end
 
   create_table "api_queries", force: :cascade do |t|
-    t.string "action", null: false
-    t.string "controller", null: false
-    t.datetime "created_at", null: false
-    t.datetime "date", default: -> { "CURRENT_TIMESTAMP" }, null: false
-    t.string "service_name"
-    t.bigint "serviceable_id", null: false
     t.string "serviceable_type", null: false
+    t.bigint "serviceable_id", null: false
+    t.string "controller", null: false
+    t.string "action", null: false
+    t.string "service_name"
     t.integer "token"
+    t.datetime "date", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_api_queries_on_date"
     t.index ["service_name"], name: "index_api_queries_on_service_name"
