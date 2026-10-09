@@ -26,10 +26,7 @@ class Organization < ApplicationRecord
   has_many :teams, through: :team_roles
   has_many :organization_histories
 
-  has_many :applications, class_name: 'License::Application', dependent: :destroy
-  has_many :app_instances, through: :applications, source: :app_instances
   has_many :licensees, class_name: 'License::Licensee', through: :app_instances
-  has_many :app_team_members, class_name: 'License::TeamMember', dependent: :destroy
   belongs_to :account
   default_scope { active.order(name: :asc) }
   scope :current_user, ->(current) { where(id: current.organization_ids) }

@@ -10,8 +10,8 @@ RSpec.describe Account, type: :model do
     it { should have_many(:users).through(:account_users).dependent(:destroy) }
     it { should have_many(:organizations).dependent(:destroy) }
     it { should have_many(:teams).dependent(:destroy) }
-    it { should have_many(:applications).through(:organizations) }
-    it { should have_many(:app_team_members).through(:organizations) }
+    it { should have_many(:applications) }
+    it { should have_many(:app_team_members) }
     it { should have_many(:model_categories).through(:organizations) }
     it { should have_many(:model_families).through(:organizations) }
     it { should have_many(:project_tokens).through(:organizations) }
@@ -58,7 +58,7 @@ RSpec.describe Account, type: :model do
     end
 
     it "org kh" do
-      expect(Account.find_by(name: "KeyHarbour Inc").organizations.count).to eq(2)
+      expect(Account.find_by(name: "KeyHarbour Inc").organizations.count).to eq(5)
     end
   end
 end

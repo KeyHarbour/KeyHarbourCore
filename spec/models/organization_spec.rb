@@ -15,7 +15,6 @@ RSpec.describe Organization, type: :model do
     it { should have_many(:tags).through(:taggings) }
     it { should have_many(:tokens).dependent(:destroy) }
     it { should have_many(:environments).dependent(:destroy) }
-    it { should have_many(:applications).dependent(:destroy) }
   end
 
   describe "validations" do

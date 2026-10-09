@@ -29,43 +29,43 @@ infra_org:
   scopable_id: <%= ActiveRecord::FixtureSet.identify(:infra) %>
   scopable_type: "Organization"
 infra_nexus_prd:
-  environment: production_simplex
+  environment: production_kh
   expiration: <%= Time.current.advance(days: 7).to_fs(:db) %>
   name: "Nexus infra token PRD"
   scopable: infra_nexus
   scopable_type: "Workspace"
 config_nexus_prd:
-  environment: production_simplex
+  environment: production_kh
   expiration: <%= Time.current.advance(days: 170).to_fs(:db) %>
   name: "Nexus software config token PRD"
   scopable: config_nexus
   scopable_type: "Workspace"
 infra_nexus_sbx:
-  environment: sandbox_simplex
+  environment: sandbox_kh
   expiration: <%= Time.current.advance(days: 7).to_fs(:db) %>
   name: "Nexus infra token SBX"
   scopable: infra_nexus
   scopable_type: "Workspace"
 config_nexus_sbx:
-  environment: sandbox_simplex
+  environment: sandbox_kh
   expiration: <%= Time.current.advance(days: 120).to_fs(:db) %>
   name: "Nexus software config token SBX"
   scopable: config_nexus
   scopable_type: "Workspace"
 infra_nexus_qa:
-  environment: qa_simplex
+  environment: qa_kh
   expiration: <%= Time.current.advance(days: 90).to_fs(:db) %>
   name: "Nexus infra token QA"
   scopable: infra_nexus
   scopable_type: "Workspace"
 config_nexus_qa:
-  environment: qa_simplex
+  environment: qa_kh
   expiration: <%= Time.current.advance(days: 300).to_fs(:db) %>
   name: "Nexus software config token QA"
   scopable: config_nexus
   scopable_type: "Workspace" 
 all_nexus_sbx:
-  environment: sandbox_simplex
+  environment: sandbox_kh
   expiration: <%= Time.current.advance(days: 120).to_fs(:db) %>
   name: "All SBX workspace"
   scopable: nexus

@@ -1,5 +1,5 @@
 class TrustAsset < ApplicationRecord
-  VALID_FORMAT_REGEX = /\A[A-Za-z0-9\.\-\_]+\z/
+  VALID_FORMAT_REGEX = /\A[A-Za-z0-9._ -]+\z/
   include MeiliSearch::Rails
   belongs_to :workspace
   belongs_to :environment

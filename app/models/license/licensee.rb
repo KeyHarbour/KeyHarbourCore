@@ -32,7 +32,6 @@ class License::Licensee < ApplicationRecord
   end
 
   def self.calculate_total_costs(data)
-    # 1. Préparation : On indexe par ID et on prépare les enfants
     nodes = {}
     children_map = Hash.new { |h, k| h[k] = [] }
 
@@ -41,12 +40,10 @@ class License::Licensee < ApplicationRecord
       children_map[item[:parent_id]] << item[:id] if item[:parent_id]
     end
 
-    # 2. Définition de la fonction de calcul récursive via un PROC
     sum_logic = lambda do |id|
       node = nodes[id]
       current_cost = node[:cost].to_f
       
-      # On calcule récursivement pour chaque enfant
       children_total = children_map[id].sum { |child_id| sum_logic.call(child_id) }
       
       total = current_cost + children_total
@@ -54,7 +51,6 @@ class License::Licensee < ApplicationRecord
       total
     end
 
-    # 3. Lancement du calcul pour chaque racine (parent_id: nil)
     data.each do |item|
       if item[:parent_id].nil? || item[:parent_id] == ""
         sum_logic.call(item[:id])
@@ -71,6 +67,8 @@ class License::Licensee < ApplicationRecord
       parent_id: team_member.manager_id || 0,
       name: team_member.uuid,
       manager_name: team_member.manager&.uuid,
+      role: team_member.role,
+      manager_role: team_member.manager&.role,
       cost: cost
       # cost: ActiveSupport::NumberHelper.number_to_currency(cost)
     }
@@ -80,8 +78,26 @@ class License::Licensee < ApplicationRecord
   end
 
   def self.create_team_member(instance, uuid)
-    instance.application.organization.app_team_members.create!(uuid: uuid)
+    Current.account.app_team_members.create!(uuid: uuid)
   end
+
+  # def self.application_tree(application)
+  #   result = {
+  #     "0" => {
+  #       id: 0,
+  #       name: "Org",
+  #       cost: 0
+  #     }
+  #   }
+  #   instance.licensees.each do |licensee|
+  #     logger.debug "Licensee: #{licensee.uuid}".red
+  #     team_member = instance.application.organization.app_team_members.find_by(uuid: licensee.uuid)
+  #     team_member = create_team_member(instance, licensee.uuid) if team_member.nil?
+
+  #     add_member(result, instance, team_member, instance.cost)
+  #   end
+  #   result.values
+  # end
 
   def self.tree(instance)
     result = {
@@ -93,7 +109,7 @@ class License::Licensee < ApplicationRecord
     }
     instance.licensees.each do |licensee|
       logger.debug "Licensee: #{licensee.uuid}".red
-      team_member = instance.application.organization.app_team_members.find_by(uuid: licensee.uuid)
+      team_member = Current.account.app_team_members.find_by(uuid: licensee.uuid)
       team_member = create_team_member(instance, licensee.uuid) if team_member.nil?
 
       add_member(result, instance, team_member, instance.cost)

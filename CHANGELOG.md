@@ -9,7 +9,6 @@
 
 ### Bug Fixes
 * Adding VERSION to gemspec with absolute path (a8bd14e)
-* Adding VERSION to gemspec with absolute path (0d5db73)
 
 ---
 
@@ -17,7 +16,6 @@
 
 ### Bug Fixes
 * Adding VERSION to gemspec (7b6d4bb)
-* Adding VERSION to gemspec (7083e3e)
 
 ---
 
