@@ -1,3 +1,10 @@
+## v1.1.2 (2026-10-10)
+
+### Bug Fixes
+* Sample fix to test pipeline (03c5719)
+
+---
+
 ## v1.1.1 (2026-10-10)
 
 ### Bug Fixes
