@@ -86,6 +86,12 @@ jobs:
       - name: Generate coverage badge
         run: bin/coverage_badge 
 
+      - name: Upload coverage badge
+        uses: actions/upload-artifact@v6
+        with:
+          name: coverage-badge
+          path: coverage.svg        
+
   increment_version:
     name: Increment Version
     runs-on: ubuntu-latest
@@ -98,6 +104,12 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+
+      - name: Download coverage badge
+        uses: actions/download-artifact@v7
+        with:
+          name: coverage-badge
+          path: .
 
       - name: Auto-increment Version and Tag
         id: step_version
