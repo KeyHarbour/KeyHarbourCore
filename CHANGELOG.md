@@ -1,3 +1,10 @@
+## v1.1.2 (2026-10-10)
+
+### Bug Fixes
+* Sample fix to test pipeline (03c5719)
+
+---
+
 ## v1.1.1 (2026-10-10)
 
 ### Bug Fixes
@@ -18,15 +25,3 @@
 * Adding VERSION to gemspec with absolute path (a8bd14e)
 
 ---
-
-## v1.0.1 (2026-09-14)
-
-### Bug Fixes
-* Adding VERSION to gemspec (7b6d4bb)
-
----
-
-## v1.0.0 (2026-09-13)
-
----
-
