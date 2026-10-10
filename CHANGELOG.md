@@ -1,3 +1,10 @@
+## v1.1.1 (2026-10-10)
+
+### Bug Fixes
+* fixing text issue (9bb2dbf)
+
+---
+
 ## v1.1.0 (2026-09-26)
 
 ### Features
