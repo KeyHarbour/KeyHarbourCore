@@ -127,5 +127,6 @@ jobs:
             echo "Le badge n'a pas changé. Aucun push nécessaire."
           else
             git commit -m "chore: Adding coverage [skip ci]"
+            git pull
             git push origin HEAD:${{ github.head_ref }} --force-with-lease
           fi
