@@ -118,8 +118,7 @@ jobs:
           name: coverage-badge
           path: .
           
-      - name: Auto-increment Version and Tag
-        id: step_version
+      - name: Add coverage
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -128,5 +127,5 @@ jobs:
             echo "Le badge n'a pas changé. Aucun push nécessaire."
           else
             git commit -m "chore: Adding coverage [skip ci]"
-            git push origin HEAD:${{ github.head_ref }}
+            git push origin HEAD:${{ github.head_ref }} --force-with-lease
           fi
