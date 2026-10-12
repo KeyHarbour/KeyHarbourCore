@@ -17,6 +17,7 @@ class Organization < ApplicationRecord
   has_many :instance_attrs, class_name: 'Inventory::InstanceAttr', through: :instances
   has_many :project_tokens, through: :projects, source: :tokens
   has_many :tokens, as: :scopable, dependent: :destroy
+  has_many :token_organizations, as: :scopable, dependent: :destroy
 
   has_many :environments, dependent: :destroy
   has_many :model_categories, class_name: 'Inventory::ModelCategory', foreign_key: 'organization_id'
