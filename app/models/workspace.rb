@@ -6,6 +6,7 @@ class Workspace < ApplicationRecord
   has_many :taggings, as: :taggable, dependent: :destroy
   has_many :tags, through: :taggings
   has_many :tokens, as: :scopable, dependent: :destroy
+  has_many :token_workspaces, as: :scopable, dependent: :destroy
 
   has_many :statefiles, dependent: :destroy
   has_many :key_value_stores, dependent: :destroy
