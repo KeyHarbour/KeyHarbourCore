@@ -5,6 +5,7 @@ class Cost
   attribute :id, :string
   attribute :service_type, :string, default: 'query'
   attribute :credits, :decimal, precision: 6, scale: 0
+  attribute :icon, :string
 
   DATA_PATH = Rails.root.join("config", "cost_data.yml")
   
@@ -17,6 +18,16 @@ class Cost
 
   def self.service_names
     all.index_by { |cost| cost.id.underscore }.transform_values(&:id)
+  end
+  
+  def self.service_with_icon
+    all.map do |cost|
+      { 
+        id: cost.id.underscore, 
+        service_type: cost.service_type, 
+        icon: cost.icon 
+      }
+    end
   end
 
   def self.query_service_names
