@@ -33,7 +33,7 @@ class Account < ApplicationRecord
   has_many :app_instances, through: :applications, source: :app_instances
   has_many :app_team_members, class_name: 'License::TeamMember', dependent: :destroy
   has_many :add_ons, through: :app_instances
-  has_many :licensees, class_name: 'License::Licensee', through: :organizations
+  has_many :licensees, class_name: 'License::Licensee', through: :app_instances
   # default_scope { active.order(name: :asc) }
   after_save :uuid
   after_create :add_free_credit, if: -> { ActiveRecord::Base.connection.table_exists?(:acount_histories) }
