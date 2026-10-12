@@ -13,6 +13,7 @@ class Project < ApplicationRecord
   has_many :trust_assets, through: :workspaces
   has_many :key_value_stores, through: :workspaces
   has_many :tokens, as: :scopable, dependent: :destroy
+  has_many :token_projects, as: :scopable, dependent: :destroy
   has_many :project_tokens, as: :scopable, dependent: :destroy
   has_many :statefiles, through: :workspaces
 
