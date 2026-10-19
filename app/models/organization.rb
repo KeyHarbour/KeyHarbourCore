@@ -19,7 +19,8 @@ class Organization < ApplicationRecord
   has_many :tokens, as: :scopable, dependent: :destroy
   has_many :token_organizations, as: :scopable, dependent: :destroy
 
-  has_many :environments, dependent: :destroy
+  has_many :environments, dependent: :destroy, inverse_of: :organization
+  accepts_nested_attributes_for :environments, allow_destroy: true, reject_if: proc { |attributes| attributes['name'].blank? }
   has_many :model_categories, class_name: 'Inventory::ModelCategory', foreign_key: 'organization_id'
   has_many :model_category_attrs, through: :model_categories
   has_many :model_families, class_name: 'Inventory::ModelFamily', foreign_key: 'organization_id'
