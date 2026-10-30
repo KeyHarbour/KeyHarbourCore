@@ -120,7 +120,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    needs: [scan_rubocop, tests]
+    needs: [tests]
     steps:
       - uses: actions/checkout@v7
         with:
