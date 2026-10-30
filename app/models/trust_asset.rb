@@ -10,9 +10,9 @@ class TrustAsset < ApplicationRecord
                     message: "only allows numbers, dots, dashes, and underscores" 
                   }
   validates :format, presence: true
-  validates :issuer, presence: true
+  validates :issuer, presence: true, unless: :tls_certificate?
   validates :consumer, presence: true
-  validates :expires_at, presence: true
+  validates :expires_at, presence: true, unless: :tls_certificate?
   validate :expiration_date_cannot_be_in_the_past
   scope :active, -> { where("expires_at >= ? OR expires_at IS NULL", Time.current) }
   scope :for_environment, ->(env) { where(environment: env).includes(:environment) }
@@ -22,6 +22,43 @@ class TrustAsset < ApplicationRecord
     tls_certificate: 0,
     token: 1
   }
+
+  def update_expiry
+    if format == 'tls_certificate'
+      details = ssl_certificate_details
+      if details.nil?
+        self.issuer = "Invalid domain name, cannot get the issuer"
+      else
+        self.expires_at = details[:expiry_date]
+        self.issuer = details[:issuer_name]
+      end
+      save
+    end
+  end
+
+  def ssl_certificate_details
+    uri = URI.parse("https://#{name}")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+    http.open_timeout = 5
+    http.read_timeout = 5
+
+    http.start do |connection|
+      cert = connection.peer_cert
+      issuer_object = cert.issuer
+      common_name = issuer_object.to_a.assoc('O')&.[](1)
+
+      return {
+        issuer_full: issuer_object.to_s,
+        issuer_name: common_name,
+        expiry_date: cert.not_after
+      }
+    end
+  rescue => e
+    Rails.logger.error("Erreur SSL pour #{name} : #{e.message}")
+    nil
+  end
 
   private
 
