@@ -34,11 +34,11 @@ jobs:
         run: bundle install --jobs 4 --retry 3
 
       - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager -x PermitAttributes
+        run: bundle exec brakeman --no-pager -x PermitAttributes
       
       - name: Scan for known security vulnerabilities in gems used
-        run: bin/bundler-audit
-        
+        run: bundle exec bundler-audit
+
   scan_rubocop:
     name: RuboCop
     runs-on: ubuntu-latest
