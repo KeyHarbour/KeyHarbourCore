@@ -15,6 +15,30 @@ env:
   DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432
 
 jobs:
+  scan_ruby:
+    runs-on: ubuntu-26.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '4.0.6'
+          bundler-cache: true
+
+      - name: Configure Bundler
+        run: bundle config set --local frozen false
+
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Scan for common Rails security vulnerabilities using static analysis
+        run: bin/brakeman --no-pager -x PermitAttributes
+      
+      - name: Scan for known security vulnerabilities in gems used
+        run: bin/bundler-audit
+        
   scan_rubocop:
     name: RuboCop
     runs-on: ubuntu-latest

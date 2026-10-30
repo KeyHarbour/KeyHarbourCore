@@ -10,9 +10,9 @@ class TrustAsset < ApplicationRecord
                     message: "only allows numbers, dots, dashes, and underscores" 
                   }
   validates :format, presence: true
-  validates :issuer, presence: true, presence: true, unless: :tls_certificate?
+  validates :issuer, presence: true, unless: :tls_certificate?
   validates :consumer, presence: true
-  validates :expires_at, presence: true, presence: true, unless: :tls_certificate?
+  validates :expires_at, presence: true, unless: :tls_certificate?
   validate :expiration_date_cannot_be_in_the_past
   scope :active, -> { where("expires_at >= ? OR expires_at IS NULL", Time.current) }
   scope :for_environment, ->(env) { where(environment: env).includes(:environment) }
