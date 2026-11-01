@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :trust_asset do
     association :workspace
     association :environment
-    name { Faker::Book.title }
+    sequence(:name) { |n| "asset-name-#{n}.com" }
     expires_at { Time.current.advance(days: 30) }
     issuer { "MyString" }
     format { 1 }

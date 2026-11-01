@@ -12,6 +12,9 @@ gem "csv"
 gem 'pagy'
 gem "unique_names_generator"
 gem "colorize"
+gem 'whois'
+gem 'whois-parser'
+gem 'ostruct'
 gem "rubocop-rails-omakase", require: false
 
 group :development, :test do

@@ -1,3 +1,6 @@
+require 'whois'
+require 'whois-parser'
+
 class TrustAsset < ApplicationRecord
   VALID_FORMAT_REGEX = /\A[A-Za-z0-9._ -]+\z/
   include MeiliSearch::Rails
@@ -10,9 +13,10 @@ class TrustAsset < ApplicationRecord
                     message: "only allows numbers, dots, dashes, and underscores" 
                   }
   validates :format, presence: true
-  validates :issuer, presence: true, unless: :tls_certificate?
-  validates :consumer, presence: true
-  validates :expires_at, presence: true, unless: :tls_certificate?
+  validates :issuer, presence: true, unless: :tls_certificate? && :domain?
+  # validates :description, presence: true
+  validates :consumer, presence: true, unless: :domain?
+  validates :expires_at, presence: true, unless: :tls_certificate? && :domain?
   validate :expiration_date_cannot_be_in_the_past
   scope :active, -> { where("expires_at >= ? OR expires_at IS NULL", Time.current) }
   scope :for_environment, ->(env) { where(environment: env).includes(:environment) }
@@ -20,8 +24,17 @@ class TrustAsset < ApplicationRecord
 
   enum :format, {
     tls_certificate: 0,
-    token: 1
+    token: 1,
+    domain: 2
   }
+
+  def expiry_level
+    # -1 no expiry data, 0 : no warning, 1 : warning, 2 : expired
+    return -1 if expires_at.nil?
+    return 2 if expires_at < DateTime.now
+    return 1 if expires_at.advance(days: -reminder_days) <= DateTime.now
+    0
+  end
 
   def update_expiry
     if format == 'tls_certificate'
@@ -31,6 +44,16 @@ class TrustAsset < ApplicationRecord
       else
         self.expires_at = details[:expiry_date]
         self.issuer = details[:issuer_name]
+      end
+      return save
+    end
+    if format == 'domain'
+      details = get_domain_expiration
+      if details.nil?
+        self.issuer = "Invalid domain name, cannot get the issuer"
+      else
+        self.expires_at = details[:expires_at]
+        self.issuer = details[:registrar]
       end
       save
     end
@@ -59,6 +82,39 @@ class TrustAsset < ApplicationRecord
     Rails.logger.error("Erreur SSL pour #{name} : #{e.message}")
     nil
   end
+
+  def get_domain_expiration
+    result = { registrar: nil, expires_at: nil }
+    whois = Whois::Client.new
+    record = whois.lookup(name)
+    parser = record.parser
+
+    result[:expires_at] = parser.expires_on
+    result[:registrar] = parser.registrar&.name
+
+    raw_content = record.content
+
+    if result[:expires_at].nil?
+      if raw_content =~ /Registry Expiry Date:\s*([^\r\n]+)/i
+        result[:expires_at] = Time.parse($1) rescue nil
+      end
+    end
+
+    if result[:registrar].nil?
+      if raw_content =~ /Registrar:\s*([^\r\n]+)/i
+        result[:registrar] = $1.strip
+      end
+    end
+    result
+
+  rescue Whois::AttributeNotSupported
+    Rails.logger.error("Le serveur Whois pour cette extension ne supporte pas l'extraction automatique de la date.")
+    nil
+  rescue StandardError => e
+    Rails.logger.error("Erreur Whois pour #{name} : #{e.message}")
+    nil
+  end
+
 
   private
 
