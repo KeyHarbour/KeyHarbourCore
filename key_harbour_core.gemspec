@@ -21,4 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", ">= 8.1.3.1"
   spec.add_dependency "railties", ">= 8.1"
   spec.add_dependency "activerecord", ">= 8.1"
+  spec.add_dependency "whois"
+  spec.add_dependency "whois-parser"
+  spec.add_dependency "unique_names_generator"
 end
