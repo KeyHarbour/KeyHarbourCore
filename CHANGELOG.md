@@ -1,3 +1,11 @@
+## v1.2.1 (2026-11-01)
+
+### Bug Fixes
+* Update CHANGELOG history (a9ad294)
+* Update CHANGELOG history (35778d4)
+
+---
+
 ## v1.2.0 (2026-11-01)
 
 ### Features
