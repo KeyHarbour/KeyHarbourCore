@@ -3,19 +3,11 @@
 ### Features
 * Allow trust assets to be a domain name (65d4183)
 * Trustasset ssl check + CI brakeman (542498a)
-* Trustasset ssl check + CI brakeman (b0e467d)
-* Trustasset ssl check + CI brakeman (0180fe6)
-* Trustasset ssl check + CI brakeman (2bf08a1)
 * Autocheck expiry date for trust assets (d88bfe9)
 
 ### Bug Fixes
 * Release changelog issue (3aacb09)
 * release/bin (d4524d1)
-* Changelog generator (75e25eb)
-* Changelog generator (0538047)
-* Changelog generator (96d7a5d)
-* Changelog generator (fc0d284)
-* bin/release (dbc3a98)
 * Change job dependencies (da12ba6)
 
 ### Maintenance
@@ -25,30 +17,6 @@
 * Update crass gem (aa7bb67)
 * Adding coverage [skip ci] (d8d7de9)
 
----
-
-## v1.1.9 (2026-11-01)
-
----
-
-## v1.1.9 (2026-11-01)
-
-### Bug Fixes
-* bin/release (dbc3a98)
-
----
-
-## v1.1.8 (2026-11-01)
-
----
-
-## v1.1.7 (2026-10-30)
-
----
-
-## v1.1.6 (2026-10-19)
-
----
 
 ## v1.1.2 (2026-10-10)
 
