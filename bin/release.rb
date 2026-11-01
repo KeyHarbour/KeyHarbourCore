@@ -5,7 +5,6 @@ version_file = "VERSION"
 current_version = File.exist?(version_file) ? File.read(version_file).strip : "0.0.0"
 major, minor, patch = current_version.split('.').map(&:to_i)
 
-# last_tag = `git describe --tags --abbrev=0 2>/dev/null`.strip
 range = "v#{current_version}..HEAD"
 puts "Commits détectés dans la plage #{range}"
 raw_commits = `git fetch --tags --force origin && git log #{range} --pretty=format:"%s (%h)"`.split("\n")
@@ -15,7 +14,6 @@ if raw_commits.empty?
   exit
 end
 
-# 2. Déterminer le type d'incrément (SemVer)
 bump_type = :patch
 raw_commits.each do |c|
   clean_commit = c.strip
@@ -27,7 +25,6 @@ raw_commits.each do |c|
   end
 end
 
-# 3. Calcul de la nouvelle version
 case bump_type
 when :major then major += 1; minor = 0; patch = 0
 when :minor then minor += 1; patch = 0
@@ -35,7 +32,6 @@ when :patch then patch += 1
 end
 new_version = "#{major}.#{minor}.#{patch}"
 
-# 4. Tri des commits pour le log
 groups = { "Features" => [], "Bug Fixes" => [], "Maintenance" => [], "Documentation" => [] }
 raw_commits.each do |commit|
   case commit
@@ -46,7 +42,6 @@ raw_commits.each do |commit|
   end
 end
 
-# 5. Construction du Markdown
 date_str = Time.now.strftime('%Y-%m-%d')
 new_content = "## v#{new_version} (#{date_str})\n\n"
 groups.each do |title, items|
@@ -56,7 +51,6 @@ groups.each do |title, items|
   new_content += "\n"
 end
 
-# 6. Écriture des fichiers
 File.write(version_file, new_version)
 
 file_path = "CHANGELOG.md"
