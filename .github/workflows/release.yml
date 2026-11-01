@@ -23,6 +23,7 @@ jobs:
         with:
           token: ${{ steps.generate-token.outputs.token }}
           persist-credentials: true 
+          fetch-depth: 0
           
       - name: Auto-increment Version and Tag
         id: step_version
