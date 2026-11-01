@@ -41,7 +41,6 @@ jobs:
           git push origin "v$VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-          
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
