@@ -23,7 +23,7 @@ RSpec.describe TrustAsset, type: :model do
     subject { create(:trust_asset) }
 
     it { should validate_presence_of(:name) }
-    it { should validate_uniqueness_of(:name).scoped_to(:workspace_id, :environment_id) }
+    it { should validate_uniqueness_of(:name).scoped_to(:workspace_id, :environment_id, :format) }
     it { should validate_presence_of(:format) }
 
     context 'Format de nom' do
