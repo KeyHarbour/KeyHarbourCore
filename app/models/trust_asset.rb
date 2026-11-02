@@ -7,7 +7,7 @@ class TrustAsset < ApplicationRecord
   belongs_to :workspace
   belongs_to :environment
   validates :name, presence: true, 
-                  uniqueness: { scope: [ :workspace_id, :environment_id ] },
+                  uniqueness: { scope: [ :workspace_id, :environment_id, :format ] },
                   format: { 
                     with: VALID_FORMAT_REGEX,
                     message: "only allows numbers, dots, dashes, and underscores" 
