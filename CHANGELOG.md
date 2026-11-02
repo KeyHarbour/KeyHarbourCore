@@ -1,3 +1,10 @@
+## v1.2.2 (2026-11-02)
+
+### Bug Fixes
+* Allow non-uniq trust-asset name with different format (7b6f635)
+
+---
+
 ## v1.2.1 (2026-11-01)
 
 ### Bug Fixes
