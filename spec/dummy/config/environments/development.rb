@@ -24,7 +24,6 @@ Rails.application.configure do
   else
     config.action_controller.perform_caching = false
   end
-
   # Change to :null_store to avoid any caching.
   config.cache_store = :memory_store
 
@@ -60,5 +59,6 @@ Rails.application.configure do
   config.active_record.encryption.primary_key = ENV["ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY"]
   config.active_record.encryption.deterministic_key = ENV["ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY"]
   config.active_record.encryption.key_derivation_salt = ENV["ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT"]
+  config.active_record.encryption.support_unencrypted_data = true
   config.active_storage.service = :local
 end
