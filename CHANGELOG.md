@@ -1,3 +1,11 @@
+## v1.2.3 (2026-11-09)
+
+### Maintenance
+* Gem update (033a9de)
+* Adding forms for contributor (3491058)
+
+---
+
 ## v1.2.2 (2026-11-02)
 
 ### Bug Fixes
