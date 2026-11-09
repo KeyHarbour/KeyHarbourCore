@@ -1,3 +1,10 @@
+## v1.2.4 (2026-11-09)
+
+### Bug Fixes
+* Replacing CE by Core on some documentation (typo) (f16f2bb)
+
+---
+
 ## v1.2.3 (2026-11-09)
 
 ### Maintenance
