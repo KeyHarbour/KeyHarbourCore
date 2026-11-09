@@ -1,3 +1,13 @@
+## v1.3.0 (2026-11-09)
+
+### Features
+* Add encryption for KV content (2421d27)
+
+### Maintenance
+* Adding coverage [skip ci] (b7e9bc7)
+
+---
+
 ## v1.2.4 (2026-11-09)
 
 ### Bug Fixes
