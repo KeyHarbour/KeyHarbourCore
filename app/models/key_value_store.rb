@@ -15,6 +15,8 @@ class KeyValueStore < ApplicationRecord
   scope :for_environment, ->(env) { where(environment: env).includes(:environment) }
   after_save :index_to_meilisearch
   validate :at_least_one_value_present
+  encrypts :value
+  encrypts_attached :value_file, migrating: true
 
   def value_file=(content)
     return if content.nil?

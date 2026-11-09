@@ -16,6 +16,7 @@ gem 'whois'
 gem 'whois-parser'
 gem 'ostruct'
 gem "rubocop-rails-omakase", require: false
+gem "lockbox"
 
 group :development, :test do
   gem 'rspec-rails'
