@@ -7,4 +7,5 @@
 .idea/
 .DS_Store
 /spec/dummy/log/
+/spec/dummy/tmp/
 coverage/*

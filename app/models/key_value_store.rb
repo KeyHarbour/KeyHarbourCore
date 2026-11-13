@@ -19,15 +19,15 @@ class KeyValueStore < ApplicationRecord
   encrypts_attached :value_file, migrating: true
 
   def value_file=(content)
-    return if content.nil?
+    return super(nil) if content.nil?
     super(content)
     self.value = nil
   end
 
   def value=(content)
-    return if content.nil?
+    return super(nil) if content.nil?
     super(content)
-    self.value_file = nil
+    self.value_file.detach if self.value_file.attached?
   end
 
 
@@ -59,7 +59,7 @@ class KeyValueStore < ApplicationRecord
     relation.map do |kv|
       {
         key: kv.key,
-        value: kv.value,
+        value: kv.private || kv.one_time_only ? '***' : kv.value,
         expires_at: kv.expires_at,
         private: kv.private,
         environment: kv.environment&.name
