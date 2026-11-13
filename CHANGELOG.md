@@ -1,3 +1,14 @@
+## v1.3.2 (2026-11-13)
+
+### Bug Fixes
+* Rerun pipeline to regenerate coverage (29cb27d)
+* Rerun pipeline to regenerate coverage (7bd8903)
+
+### Maintenance
+* Adding coverage [skip ci] (60ef202)
+
+---
+
 ## v1.3.1 (2026-11-13)
 
 ### Bug Fixes
