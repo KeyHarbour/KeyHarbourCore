@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :license_instance, class: 'License::Instance' do
-    association :application
+    association :application, factory: :license_application
     name { "MyString" }
     short_name { "MyString" }
     owner { "MyString" }
