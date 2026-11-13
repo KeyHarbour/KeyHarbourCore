@@ -1,3 +1,11 @@
+## v1.3.1 (2026-11-13)
+
+### Bug Fixes
+* Adding some test and fixing kv issue when ls is used with private or onetimeonly (166e47b)
+* One time only can be view multiple time with ls command (45b3899)
+
+---
+
 ## v1.3.0 (2026-11-09)
 
 ### Features
