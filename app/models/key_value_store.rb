@@ -59,7 +59,7 @@ class KeyValueStore < ApplicationRecord
     relation.map do |kv|
       {
         key: kv.key,
-        value: kv.value,
+        value: kv.private || kv.one_time_only ? '***' : kv.value,
         expires_at: kv.expires_at,
         private: kv.private,
         environment: kv.environment&.name
