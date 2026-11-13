@@ -12,7 +12,7 @@
 KeyHarbour gives DevSecOps and IT teams one governed place for their operational data: infrastructure state files, inter-pipeline artifacts, software licenses, and tokens. Deploy on-premises, in any cloud, or as SaaS, according to your compliance requirements.
 
 ## Usage
-This plugin is the core components of KH solution. It define the DB model and his relation 
+This gem is the core components of KH solution. It define the DB model and his relation 
 
 ## Installation
 Add this line to your application's Gemfile:
