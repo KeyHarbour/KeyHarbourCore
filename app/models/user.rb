@@ -146,10 +146,10 @@ class User < ApplicationRecord
   end
 
   def account_admin?
-    return true if self.admin?
+    return true if admin?
+    return false unless account_user
 
-    return true if account_user && account_user.role == Role.find_by(name: 'Owner') || account_user.role == Role.find_by(name: 'Admin')
-    false
+    account_user.role&.name.in?(%w[Owner Admin])
   end
 
   meilisearch do
