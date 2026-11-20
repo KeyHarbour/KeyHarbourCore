@@ -1,3 +1,13 @@
+## v1.3.4 (2026-11-20)
+
+### Bug Fixes
+* Issue with empty Strike Token (1918398)
+
+### Maintenance
+* Adding coverage [skip ci] (36b42d2)
+
+---
+
 ## v1.3.3 (2026-11-19)
 
 ### Bug Fixes
