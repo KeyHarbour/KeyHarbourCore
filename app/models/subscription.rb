@@ -5,7 +5,9 @@ class Subscription < ApplicationRecord
   has_many :subscription_credits
 
   def set_stripe_customer_id
-    client = Stripe::StripeClient.new(ENV["STRIPE_KEY"])
+    logger.debug Stripe.api_key
+    logger.debug 'aaaaa' * 500
+    client = Stripe::StripeClient.new(Stripe.api_key)
     customer = client.v1.customers.create({
       name: account.name,
       email: account.billing_contact
